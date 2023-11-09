@@ -573,7 +573,7 @@ paths:
       tags:
         - Empresas
       security:
-        - bearerAuth: [ ] #Autenticação SWT necessária
+        - bearerAuth: [ ] #Autenticação SWT necessáriam
       responses:
         '200':
           description: Arquivo extensão .txt criada com sucesso.
