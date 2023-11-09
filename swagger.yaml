@@ -575,7 +575,7 @@ paths:
       security:
         - bearerAuth: [ ] #Autenticação SWT necessária
       responses:
-        '201':
+        '200':
           description: Arquivo extensão .txt criada com sucesso.
 
 components:
