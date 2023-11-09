@@ -567,7 +567,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EmpresaResponse'
-
+  /v1.0/empresas/gerarTxt:
+    post:
+      summary: Gera um arquivo txt das empresas cadastradas
+      tags:
+        - Empresas
+      security:
+        - bearerAuth: [] #Autenticação SWT necessária
+          responses:
+            '201':
+              description: Arquivo extensão .txt criada com sucesso.
 
 components:
   schemas:
