@@ -13,6 +13,7 @@ tags:
   - name: Prestadoras
   - name: Serviços
   - name: Newsletters
+  - name: Portfólio
 
 paths:
   /auth/login:
@@ -426,8 +427,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServicoResponse'
-
-
+  /v1.0/servicos/busca-area-atuacao:
+    get:
+      summary: Busca serviço por área de atuação.
+      tags:
+        - Serviços
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: areaAtuacaoEsg
+          in: query
+          schema:
+            type: array
+          description: área de atuação do serviço
+          required: true
+      responses:
+        '200':
+          description: Dados do serviço retornado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicoResponse'
+        '404':
+          description: área de atuação não encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicoResponse'
+  /v1.0/servicos/fila-exibicao-curtidas:
+    get:
+      summary: Exibe uma fila de curtidas daquele serviço.
+      tags:
+        - Serviços
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Dados do serviço.
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/ServicoResponse'
+      responses:
+        '200':
+          description: Dados do serviço retornado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicoResponse'
+        '404':
+          description: área de atuação não encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicoResponse'
     # Defina operações para o microsserviço de serviços aqui
     # ...
 
@@ -540,9 +593,9 @@ paths:
           description: identificador da newsletter
           required: true
       responses:
-        204:
+        '204':
           description: Newsletter deletada com sucesso.
-        404:
+        '404':
           description: Newsletter não encontrada.
 
   /v1.0/empresas/assinante:
@@ -577,7 +630,251 @@ paths:
       responses:
         '200':
           description: Arquivo extensão .txt criada com sucesso.
+  /v1.0/portfolios:
+    post:
+      tags:
+        - Portfólio
+      requestBody:
+          description: Dados do novo portfolio
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioInput'
+      responses:
+        '201':
+          description: Portfolio criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioResponse'
+    get:
+      summary: busca todos os portfólios cadastrados
+      tags:
+        - Portfólio
+      responses:
+        '200':
+          description: lista de portfólios obtidas com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortfolioResponse'
+  /v1.0/portfolios/{id}:              
+    get:
+      summary: busca portfólios cadastrados por ID
+      tags:
+        - Portfólio
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          description: identificador da empresa
+          required: true 
+      responses:
+        '200':
+          description: lista de portfólios obtidas com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortfolioResponse'
+        '404':
+          description: portfolio não encontrado.  
+    put:
+      summary: atualiza portfólio pelo ID
+      tags:
+        - Portfólio
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          description: identificador da empresa.
+          required: true
+      requestBody:
+          description: Dados do novo portfolio
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioInput'
+      responses:
+        '200':
+          description: portfólio atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/PortfolioResponse'
+        '404':
+          description: portfólio não encontrado.
+    delete:
+      summary: deleta portfolio por ID.
+      tags:
+        - Portfólio
+      parameters:
+        - name: id
+          in: path
+          schema: 
+            type: string
+            format: uuid
+          description: identificador de portfólio.
+          required: true
+      responses:
+        '204':
+          description: portfólio deletado com sucesso.
+  /v1.0/avaliacoes:
+    post:
+      tags:
+        - Avaliação
+      requestBody:
+          description: Dados da nova avaliação
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoInput'
+      responses:
+        '201':
+          description: Avaliação criada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponse'
+    get:
+      tags:
+        - Avaliação
+      parameters:
+        - name: comentario
+          in: query
+          schema:
+            type: string
+          description: buscar por um comentario
+        - name: nota
+          in: query
+          schema:
+            type: integer
+          description: buscar por uma nota
+        - name: fkEmpresa
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: buscar pelo id da empresa
+        - name: fkServico
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: buscar pelo id do serviço
+      responses:
+        '200':
+          description: lista de avaliações obtidas com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvaliacaoResponse'
+  /v1.0/avaliacoes/{id}:
+    get:
+      tags:
+        - Avaliação
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: busca avaliação por id 
+      responses:
+        '200':
+          description: avaliação por id obtida com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvaliacaoResponse'
+    put:
+      tags:
+        - Avaliação
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: identificador da avaliação
+      requestBody:
+          description: Dados da nova avaliação
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoInput'
+      responses:
+        '200':
+          description: Atualização da avaliação realizada corretamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponse'
+    delete:
+      tags:
+        - Avaliação
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: identificador da avaliação
+      responses:
+        '204':
+          description: Avaliação deletada com sucesso
+  /v1.0/avaliacoes/historico:
+    post:
+      tags:
+        - Avaliação
+      responses:
+        '202':
+          description: lista de avaliação gerada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponse'
+  /v1.0/avaliacoes/data:
+    get:
+      tags:
+        - Avaliação
+      parameters:
+      - name: data
+        in: query
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: lista de avaliações ordenadas pela data gerada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvaliacaoResponse'
 
+
+
+    
+                
+                
 components:
   schemas:
     EmpresaInput:
@@ -691,7 +988,14 @@ components:
           example: Este é um serviço de Exemplo
         valor:
           type: number
-          example: 100.0
+          example: 0.0
+        areaAtuacaoEsg:
+            type: array
+            example: [ENVIRONMENTAL, SOCIAL, GOVERNANCE]
+        fkPrestadoraServico:
+            type: string
+            format: uuid
+            example: id da prestadora do serviço.
       
     ServicoResponse:
         properties:
@@ -707,7 +1011,15 @@ components:
             example: Este é um serviço de Exemplo
           valor:
             type: number
-            example: 100.0
+            example: 0.0
+          areaAtuacaoEsg:
+            type: array
+            example: [ENVIRONMENTAL, SOCIAL, GOVERNANCE]
+          fkPrestadoraServico:
+            type: string
+            format: uuid
+            example: id da prestadora do serviço.
+
     PrestadoraInput:
       properties:
         idEmpresa:
@@ -733,6 +1045,95 @@ components:
           type: string
           format: uuid
           example: ID da empresa associada à prestadora.
+
+    PortfolioInput:
+      properties:
+        urlImagemPerfil:
+          type: string
+          example: imagem_teste.jpeg
+        urlBackgroundPerfil:
+          type: string
+          example: imagem_background_teste.jpeg
+        descricaoEmpresa:
+          type: string
+          example: Descrição empresas
+        sobreEmpresa:
+          type: string
+          example: empresa...
+        linkWebsiteEmpresa:
+          type: string
+          example: www.empresaWebSite.com
+        dataEmpresaCertificada:
+          type: string
+          example: 2023-01-01
+        fkPrestadoraServico:
+          type: string
+          example: UUID
+
+    PortfolioResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID da portifolio
+        urlImagemPerfil:
+          type: string
+          example: Imagem_perfil.jpeg
+        urlBackgroundPerfil:
+          type: string
+          example: imagem_background.jpeg
+        descricaoEmpresa:
+          type: string
+          example: Descrição empresa
+        sobreEmpresa:
+          type: string
+          example: empresa...
+        linkWebsiteEmpresa:
+          type: string
+          example: www.empresaWebSite.com
+        dataEmpresaCertificada:
+          type: string
+          example: 2023-01-01
+        fkPrestadoraServico:
+          type: string
+          example: uuid
+    
+    AvaliacaoInput:
+      properties:
+        comentario:
+          type: string
+          example: Gostei muito desse serviço.
+        nota:
+          type: integer
+          example: 1 a 5
+        data:
+          type: string
+          example: 2023-01-01
+        fkServico:
+          type: string
+          format: uuid
+        fkEmpresa:
+          type: string
+          format: uuid
+
+    AvaliacaoResponse:
+      properties:
+        comentario:
+          type: string
+          example: Gostei muito desse serviço.
+        nota:
+          type: integer
+          example: 1 a 5
+        data:
+          type: string
+          example: 2023-01-01
+        fkServico:
+          type: string
+          format: uuid
+        fkEmpresa:
+          type: string
+          format: uuid
+
   securitySchemes:
     bearerAuth:
       type: http
