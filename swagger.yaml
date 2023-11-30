@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Ethos - Microsservices
-  description: API para gerenciar empresas, serviços e newsletters
+  description: API para gerenciar empresas, serviços, portfólios, avaliações e newsletters
   version: 1.0.0
 servers:
   - url: http://localhost:8080
@@ -240,7 +240,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicoInput'
+                $ref: '#/components/schemas/ServicoResponse'
         '400':
           description: Dados inválidos.
           content:
@@ -976,10 +976,6 @@ components:
           
     ServicoInput:
       properties:
-        id:
-          type: string
-          format: uuid
-          example: ID do serviço.
         nomeServico:
           type: string
           example: Exemplo
