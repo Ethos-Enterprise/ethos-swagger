@@ -629,7 +629,7 @@ paths:
         - bearerAuth: [ ] #Autenticação SWT necessáriam
       responses:
         '200':
-          description: Arquivo extensão .txt criada com sucesso.
+          description: Arquivo extensão .txt criado com sucesso.
   /v1.0/portfolios:
     post:
       tags:
@@ -649,12 +649,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/PortfolioResponse'
     get:
-      summary: busca todos os portfólios cadastrados
+      summary: Buscar todos os portfólios cadastrados
       tags:
         - Portfólio
       responses:
         '200':
-          description: lista de portfólios obtidas com sucesso.
+          description: Lista de portfólios obtidas com sucesso.
           content:
             application/json:
               schema:
@@ -663,7 +663,7 @@ paths:
                   $ref: '#/components/schemas/PortfolioResponse'
   /v1.0/portfolios/{id}:              
     get:
-      summary: buscar portfólios cadastrados por ID
+      summary: Buscar portfólios cadastrados por ID
       tags:
         - Portfólio
       parameters:
@@ -676,7 +676,7 @@ paths:
           required: true 
       responses:
         '200':
-          description: lista de portfólios obtidas com sucesso.
+          description: Lista de portfólios obtidas com sucesso.
           content:
             application/json:
               schema:
@@ -684,9 +684,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/PortfolioResponse'
         '404':
-          description: portfolio não encontrado.  
+          description: Portfolio não encontrado.
     put:
-      summary: atualizar portfólio pelo ID
+      summary: Atualizar portfólio pelo ID
       tags:
         - Portfólio
       parameters:
@@ -706,15 +706,15 @@ paths:
                 $ref: '#/components/schemas/PortfolioInput'
       responses:
         '200':
-          description: portfólio atualizado com sucesso.
+          description: Portfólio atualizado com sucesso.
           content:
             application/json:
               schema:
                   $ref: '#/components/schemas/PortfolioResponse'
         '404':
-          description: portfólio não encontrado.
+          description: Portfólio não encontrado.
     delete:
-      summary: deletar portfolio por ID.
+      summary: Deletar portfolio por ID.
       tags:
         - Portfólio
       parameters:
@@ -727,7 +727,7 @@ paths:
           required: true
       responses:
         '204':
-          description: portfólio deletado com sucesso.
+          description: Portfólio deletado com sucesso.
   /v1.0/avaliacoes:
     post:
       tags:
@@ -747,6 +747,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvaliacaoResponse'
     get:
+      summary: Buscar por um comentário
       tags:
         - Avaliação
       parameters:
@@ -754,27 +755,27 @@ paths:
           in: query
           schema:
             type: string
-          description: buscar por um comentario
+          description: Buscar por um comentario
         - name: nota
           in: query
           schema:
             type: integer
-          description: buscar por uma nota
+          description: Buscar por uma nota
         - name: fkEmpresa
           in: query
           schema:
             type: string
             format: uuid
-          description: buscar pelo id da empresa
+          description: Buscar pelo id da empresa
         - name: fkServico
           in: query
           schema:
             type: string
             format: uuid
-          description: buscar pelo id do serviço
+          description: Buscar pelo id do serviço
       responses:
         '200':
-          description: lista de avaliações obtidas com sucesso.
+          description: Lista de avaliações obtidas com sucesso.
           content:
             application/json:
               schema:
@@ -783,6 +784,7 @@ paths:
                   $ref: '#/components/schemas/AvaliacaoResponse'
   /v1.0/avaliacoes/{id}:
     get:
+      summary: Buscar avaliação por id
       tags:
         - Avaliação
       parameters:
@@ -792,10 +794,10 @@ paths:
             type: string
             format: uuid
           required: true
-          description: buscar avaliação por id
+          description: Buscar avaliação por id
       responses:
         '200':
-          description: avaliação por id obtida com sucesso
+          description: Avaliação por id obtida com sucesso
           content:
             application/json:
               schema:
@@ -803,6 +805,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/AvaliacaoResponse'
     put:
+      summary: Atualizar avaliação por id
       tags:
         - Avaliação
       parameters:
@@ -828,6 +831,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvaliacaoResponse'
     delete:
+      summary: Deletar avaliação por id
       tags:
         - Avaliação
       parameters:
@@ -843,17 +847,19 @@ paths:
           description: Avaliação deletada com sucesso
   /v1.0/avaliacoes/historico:
     post:
+      summary: Gerar um histórico de avaliações
       tags:
         - Avaliação
       responses:
         '202':
-          description: lista de avaliação gerada com sucesso
+          description: Lista de avaliação gerada com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AvaliacaoResponse'
   /v1.0/avaliacoes/data:
     get:
+      summary: Buscar avaliações por data
       tags:
         - Avaliação
       parameters:
@@ -864,7 +870,7 @@ paths:
         required: true
       responses:
         '200':
-          description: lista de avaliações ordenadas pela data gerada com sucesso
+          description: Lista de avaliações ordenadas pela data gerada com sucesso
           content:
             application/json:
               schema:
