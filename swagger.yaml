@@ -456,7 +456,7 @@ paths:
                 $ref: '#/components/schemas/ServicoResponse'
   /v1.0/servicos/fila-exibicao-curtidas:
     get:
-      summary: Exiber uma fila de curtidas daquele serviço.
+      summary: Exibir uma fila de curtidas daquele serviço.
       tags:
         - Serviços
       security:
