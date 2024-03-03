@@ -222,7 +222,7 @@ paths:
 
   /v1.0/servicos:
     post:
-      summary: Cria um serviço
+      summary: Criar um serviço
       tags:
         - Serviços
       security:
@@ -248,7 +248,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServicoResponse'
     get:
-      summary: Busca todos os serviços
+      summary: Buscar todos os serviços
       tags: 
         - Serviços
       security:
@@ -265,7 +265,7 @@ paths:
                       
   /v1.0/servicos/{id}:
     get:
-      summary: Busca um serviço através de um id 
+      summary: Buscar um serviço através de um id
       tags:
         - Serviços
       security:
@@ -294,7 +294,7 @@ paths:
                 items: 
                   $ref: '#/components/schemas/ServicoResponse'
     put:
-      summary: Atualiza um serviço através do id.
+      summary: Atualizar um serviço através do id.
       tags:
         - Serviços
       security:
@@ -331,7 +331,7 @@ paths:
                   items: 
                     $ref: '#/components/schemas/ServicoResponse'
     delete:
-      summary: deleta serviço por id.
+      summary: deletar serviço por id.
       tags:
         - Serviços
       parameters:
@@ -348,7 +348,7 @@ paths:
 
   /v1.0/servicos/busca-por-nome:
     get:
-      summary: Busca serviço por nome.
+      summary: Buscar serviço por nome.
       tags:
         - Serviços
       security:
@@ -375,7 +375,7 @@ paths:
                 $ref: '#/components/schemas/ServicoResponse'
   /v1.0/servicos/busca-por-descricao:
     get:
-      summary: Busca serviço por descrição.
+      summary: Buscar serviço por descrição.
       tags:
         - Serviços
       security:
@@ -402,7 +402,7 @@ paths:
                 $ref: '#/components/schemas/ServicoResponse'
   /v1.0/servicos/busca-por-valor:
     get:
-      summary: Busca serviço por valor.
+      summary: Buscar serviço por valor.
       tags:
         - Serviços
       security:
@@ -429,7 +429,7 @@ paths:
                 $ref: '#/components/schemas/ServicoResponse'
   /v1.0/servicos/busca-area-atuacao:
     get:
-      summary: Busca serviço por área de atuação.
+      summary: Buscar serviço por área de atuação.
       tags:
         - Serviços
       security:
@@ -456,7 +456,7 @@ paths:
                 $ref: '#/components/schemas/ServicoResponse'
   /v1.0/servicos/fila-exibicao-curtidas:
     get:
-      summary: Exibe uma fila de curtidas daquele serviço.
+      summary: Exiber uma fila de curtidas daquele serviço.
       tags:
         - Serviços
       security:
@@ -600,7 +600,7 @@ paths:
 
   /v1.0/empresas/assinante:
     get:
-      summary: Consulta empresas assinantes
+      summary: Consultar empresas assinantes
       tags:
         - Empresas
       security:
@@ -622,7 +622,7 @@ paths:
                   $ref: '#/components/schemas/EmpresaResponse'
   /v1.0/empresas/gerarTxt:
     post:
-      summary: Gera um arquivo txt das empresas cadastradas
+      summary: Gerar um arquivo txt das empresas cadastradas
       tags:
         - Empresas
       security:
@@ -663,7 +663,7 @@ paths:
                   $ref: '#/components/schemas/PortfolioResponse'
   /v1.0/portfolios/{id}:              
     get:
-      summary: busca portfólios cadastrados por ID
+      summary: buscar portfólios cadastrados por ID
       tags:
         - Portfólio
       parameters:
@@ -686,7 +686,7 @@ paths:
         '404':
           description: portfolio não encontrado.  
     put:
-      summary: atualiza portfólio pelo ID
+      summary: atualizar portfólio pelo ID
       tags:
         - Portfólio
       parameters:
@@ -714,7 +714,7 @@ paths:
         '404':
           description: portfólio não encontrado.
     delete:
-      summary: deleta portfolio por ID.
+      summary: deletar portfolio por ID.
       tags:
         - Portfólio
       parameters:
@@ -792,7 +792,7 @@ paths:
             type: string
             format: uuid
           required: true
-          description: busca avaliação por id 
+          description: buscar avaliação por id
       responses:
         '200':
           description: avaliação por id obtida com sucesso
